@@ -39,8 +39,8 @@ func (a *App) Provision(ctx caddy.Context) error {
 
 // Validate implements caddy.Validator
 func (a App) Validate() error {
-	if a.RollDomain == "" {
-		return fmt.Errorf("roll_domain is required")
+	if a.Vhost == "" {
+		return fmt.Errorf("vhost is required")
 	}
 	return nil
 }

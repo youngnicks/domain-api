@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	caddy "github.com/caddyserver/caddy/v2"
+	"github.com/caddyserver/caddy/v2/caddyconfig/httpcaddyfile"
+	"github.com/caddyserver/caddy/v2/modules/caddyhttp"
 )
 
 var (
@@ -16,7 +18,7 @@ var (
 
 func init() {
 	caddy.RegisterModule(Middleware{})
-	httpcaddyfile.RegisterDirective("cdapi", parseHandlerCaddyfile)
+	httpcaddyfile.RegisterDirective("vhapi", parseHandlerCaddyfile)
 }
 
 // Middleware implements an HTTP handler that creates a vhost.
@@ -25,7 +27,7 @@ type Middleware struct {
 }
 
 // CaddyModule returns the Caddy module information.
-func (Middleware) CaddyModule() caddy.MOduleInfo {
+func (Middleware) CaddyModule() caddy.ModuleInfo {
 	return caddy.ModuleInfo{
 		ID:  "http.handlers.vhostapi",
 		New: func() caddy.Module { return new(Middleware) },
@@ -65,7 +67,7 @@ func (m Middleware) ServeHTTP(w http.ResponseWriter, r *http.Request, next caddy
 		Error  string `json:"error,omitempty"`
 	}
 
-	err := m.run(r)
+	err := m.run(w, r)
 
 	if err == nil {
 		resp.Status = "success"
