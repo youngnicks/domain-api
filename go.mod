@@ -1,4 +1,4 @@
-module github.com/youngnicks/domain-api
+module github.com/youngnicks/vhost-api
 
 go 1.14
 

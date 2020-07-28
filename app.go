@@ -1,4 +1,4 @@
-package cdapi
+package vhostapi
 
 import (
 	"fmt"
@@ -24,18 +24,16 @@ func init() {
 
 // App is top level module that runs Custom Domain API.
 type App struct {
-	RollDomain string `json:roll_domain,omitempty"`
+	Vhost string `json:vhost,omitempty"`
 
-	domains map[string]Domain
-	logger  *zap.Logger
+	vhosts map[string]Vhost
+	log    *zap.Logger
 }
 
 // Provision implements caddy.Provisioner
 func (a *App) Provision(ctx caddy.Context) error {
-	a.logger = ctx.Logger(a)
-	a.logger.Info("Current context:",
-		zap.Any("ctx", ctx),
-	)
+	a.log = ctx.Logger(a)
+
 	return nil
 }
 

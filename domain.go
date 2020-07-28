@@ -1,4 +1,4 @@
-package cdapi
+package vhostapi
 
 import (
 	"time"
